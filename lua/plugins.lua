@@ -131,10 +131,13 @@ return require('packer').startup(function(use)
      use 'voldikss/vim-floaterm'
 
      -- [[ Telescope (Search) TODO set this stuff up ]]
+     use 'kdheepak/lazygit.nvim'
      use {
       'nvim-telescope/telescope.nvim', tag = '0.1.1',
-    -- or                            , branch = '0.1.x',
-      requires = { {'nvim-lua/plenary.nvim'} }
+      requires = { {'nvim-lua/plenary.nvim'}, {'kdheepak/lazygit.nvim'} },
+      config = function()
+          require("telescope").load_extension("lazygit")
+        end,
     }
 
      -- [[ nvim-tree File Explorer ]]
@@ -163,7 +166,7 @@ return require('packer').startup(function(use)
     } 
      
      -- [[ nvim-web-devicons ]]
-     use 'nvim-tree/nvim-web-devicons'
+     -- already installed above use 'nvim-tree/nvim-web-devicons'
      -- [[ lsp-colors ]]
      use 'folke/lsp-colors.nvim'
 

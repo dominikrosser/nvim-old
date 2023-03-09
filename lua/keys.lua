@@ -44,3 +44,7 @@ end, { desc = "Previous todo comment" })
 vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
   {silent = true, noremap = true}
 )
+
+-- lazygit
+-- " setup mapping to call :LazyGit
+map('n', "<leader>gg", ":LazyGit<CR>", {})
