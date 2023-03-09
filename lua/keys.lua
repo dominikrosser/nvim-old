@@ -26,3 +26,21 @@ map('t', "<Esc>", "<C-\\><C-n>:q<CR>", {})
 -- nvim-tree file explorer
 map('n', "<leader>e", ":NvimTreeToggle<CR>", {})
 map('n', "<leader>f", ":NvimTreeFocus<CR>", {})
+
+-- tagbar this lists classes and functions and stuff
+map('n', "<leader>t", ":TagbarToggle<CR>", {})
+-- TODO install ctags for rust
+
+-- todo-comments: jump between todos
+vim.keymap.set("n", "]t", function()
+  require("todo-comments").jump_next()
+end, { desc = "Next todo comment" })
+vim.keymap.set("n", "[t", function()
+  require("todo-comments").jump_prev()
+end, { desc = "Previous todo comment" })
+-- TODO test this in python, rust
+
+-- trouble: diagnostics tab
+vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
+  {silent = true, noremap = true}
+)
