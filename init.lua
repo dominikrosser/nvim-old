@@ -1,5 +1,10 @@
 --[[ init.lua ]]
 
+-- FOR nvim-tree:
+-- disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- LEADER
 -- These keybindings need to be defined before the first /
 -- is called; otherwise, it will default to "\"
@@ -127,3 +132,17 @@ require('nvim-treesitter.configs').setup {
     max_file_lines = nil,
   }
 }
+
+-- [[ nvim-tree File Explorer Setup ]]
+-- set termguicolors to enable highlight groups
+vim.opt.termguicolors = true
+-- setup
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})

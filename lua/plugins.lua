@@ -124,6 +124,28 @@ return require('packer').startup(function(use)
   use 'nvim-treesitter/nvim-treesitter'
   -- -- END PARSER
 
+  -- [[ Vimspector and CodeLLDB to debug Rust and Rust Tests ]]
+  use 'puremourning/vimspector'
+
+  -- [[ Floatterm floating terminal ]]
+  use 'voldikss/vim-floaterm'
+
+  -- [[ Telescope (Search) TODO set this stuff up ]]
+  use {
+  'nvim-telescope/telescope.nvim', tag = '0.1.1',
+-- or                            , branch = '0.1.x',
+  requires = { {'nvim-lua/plenary.nvim'} }
+}
+
+  -- [[ nvim-tree File Explorer ]]
+  use {
+  'nvim-tree/nvim-tree.lua',
+  requires = {
+    'nvim-tree/nvim-web-devicons', -- optional, for file icons
+  },
+  tag = 'nightly' -- optional, updated every week. (see issue #1193)
+}
+
   -- Put this at the end after all plugins
   if packer_bootstrap then
     require('packer').sync()
