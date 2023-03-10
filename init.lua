@@ -18,7 +18,12 @@ require('keys')      -- Keymaps
 require('plugins')   -- Plugins
 
 -- RUST-ANALYZER interaction with neovim
-local rt = require("rust-tools")
+--[[ let rust_opts = {
+    server = {
+        cmd = ['/path/to-rust-analyzed']
+    },
+} ]]
+local rt = require("rust-tools")--.setup(rust_opts)
 rt.setup({
     server = {
         on_attach = function(_, bufnr)
@@ -139,6 +144,13 @@ vim.opt.termguicolors = true
 -- setup
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
+  view = {
+    mappings = {
+        list = {
+            --{ key = "u", action = "dir_up" }
+        },
+    },
+  },
   renderer = {
     group_empty = true,
   },
@@ -146,8 +158,18 @@ require("nvim-tree").setup({
     dotfiles = true,
   },
 })
+local function open_nvim_tree(data)
+    local directory = vim.fn.isdirectory(data.file) == 1
+    if not directory then
+        return
+    end
+    vim.cmd.cd(data.file)
+    require("nvim-tree.api").tree.open()
+end
+vim.api.nvim_create_autocmd({"VimEnter"}, { callback=open_nvim_tree})
 
--- [[ Neovide: allow cmd-c cmd-v to copy and paste ]]
+-- [[ Neovide ]]
+-- allow cmd-c cmd-v to copy and paste 
 if vim.g.neovide then
   vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key
   vim.keymap.set('n', '<D-s>', ':w<CR>') -- Save
@@ -162,4 +184,16 @@ vim.g.neovide_input_use_logo = 1
 vim.api.nvim_set_keymap('', '<D-v>', '+p<CR>', { noremap = true, silent = true})
 vim.api.nvim_set_keymap('!', '<D-v>', '<C-R>+', { noremap = true, silent = true})
 vim.api.nvim_set_keymap('t', '<D-v>', '<C-R>+', { noremap = true, silent = true})
-vim.api.nvim_set_keymap('v', '<D-v>', '<C-R>+', { noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('v', '<D-v>', '<C-R>+', { noremap = true, silent = true})
+-- padding
+vim.g.neovide_padding_top = 0
+vim.g.neovide_padding_bottom = 0
+vim.g.neovide_padding_right = 0
+vim.g.neovide_padding_left = 0
+-- transparency
+local alpha = function()
+    return string.format("%x", math.floor(255*vim.g.transparency or 0.8))
+end
+--vim.g.neovide_transparency = 0.0 -- should be zero to unify content and window transparency
+--vim.g.transparency = 1.0 
+--vim.g.neovide_background_color = "#0f1117" .. alpha()

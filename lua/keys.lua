@@ -4,19 +4,26 @@ local map = vim.api.nvim_set_keymap
 -- remap the key used to leave insert mode
 map('i', 'jk', '<esc>', {}) -- basically this sets the usual esc to jk
 
+-- map keys for save and quit
+map('n', '<leader>w', ':w<CR>', {})
+map('n', '<leader>wq', ':wq<CR>', {})
+map('n', '<leader>q', ':q<CR>', {})
+
 -- Vimspector keys
--- Vimspector
+-- Vimspector (debugging)
 vim.cmd([[
 nmap <F9> <cmd>call vimspector#Launch()<cr>
 nmap <F5> <cmd>call vimspector#StepOver()<cr>
 nmap <F8> <cmd>call vimspector#Reset()<cr>
-nmap <F11> <cmd>call vimspector#StepOver()<cr>")
 nmap <F12> <cmd>call vimspector#StepOut()<cr>")
 nmap <F10> <cmd>call vimspector#StepInto()<cr>")
 ]])
 map('n', "Db", ":call vimspector#ToggleBreakpoint()<cr>", {})
 map('n', "Dw", ":call vimspector#AddWatch()<cr>", {})
 map('n', "De", ":call vimspector#Evaluate()<cr>", {})
+-- get variables to popup in debug mode (debug inspect)
+map('n', "<leader>Di", "<Plug>VimspectorBalloonEval", {})
+map('x', "<leader>Di", "<Plug>VimspectorBalloonEval", {})
 
 -- Floaterm floating terminal
 map('n', "<leader>ft", ":FloatermNew --name=myfloat2 --height=0.9 --width=0.9 --autoclose=2 fish <CR> ", {})

@@ -125,6 +125,7 @@ return require('packer').startup(function(use)
      -- -- END PARSER
 
      -- [[ Vimspector and CodeLLDB to debug Rust and Rust Tests ]]
+     -- vimspector is alwo used with python
      use 'puremourning/vimspector'
 
      -- [[ Floatterm floating terminal ]]
